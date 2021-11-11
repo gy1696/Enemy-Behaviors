@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BasicHeroScript : MonoBehaviour
 {
+    public EnemySpawnControl e;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +24,21 @@ public class BasicHeroScript : MonoBehaviour
         if(Input.GetKey("a") || Input.GetKey("d"))
         {
             this.transform.position += Vector3.right * side;
+        }
+
+        if(Input.GetKeyDown("z"))
+        {
+            e.SpawnUFO();
+        }
+
+        if(Input.GetKeyDown("x"))
+        {
+            e.SpawnFighter();
+        }
+
+        if(Input.GetKeyDown("c"))
+        {
+            e.SpawnChaser();
         }
     }
 
