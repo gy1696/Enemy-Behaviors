@@ -16,7 +16,7 @@ public class EnemySpawnControl : MonoBehaviour
     {
         Instantiate(Resources.Load("Prefabs/Fighter"), new Vector3(0, 150, 0), Quaternion.Euler(new Vector3(0,0,0))); 
         Instantiate(Resources.Load("Prefabs/Fighter"), new Vector3(-50, 150, 0), Quaternion.Euler(new Vector3(0,0,0))); 
-        Instantiate(Resources.Load("Prefabs/Fighter"), new Vector3(50, 150, 0), Quaternion.Euler(new Vector3(0,0,0))); 
+        Instantiate(Resources.Load("Prefabs/Fighter"), new Vector3(100, 150, 0), Quaternion.Euler(new Vector3(0,0,-45))); 
     }
 
     public void SpawnChaser()

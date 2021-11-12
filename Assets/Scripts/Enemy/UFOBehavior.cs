@@ -52,7 +52,7 @@ public class UFOBehavior : MonoBehaviour
         {
             transform.Translate(speed, Space.World);
             Debug.Log("TRANSLATING DOWN");
-            if(transform.position.y < bound.min.y)
+            if(transform.position.y < bound.min.y - 10)
             {
                 Destroy(gameObject);
             }

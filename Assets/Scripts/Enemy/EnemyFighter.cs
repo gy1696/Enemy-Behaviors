@@ -22,7 +22,7 @@ public class EnemyFighter : MonoBehaviour
         health = GetComponent<EnemyHealth>();
         health.setHealth(1, 1);
 
-        speed = new Vector3(0, -30f, 0);
+        speed = new Vector3(0, 30f, 0);
         speed = speed * Time.fixedDeltaTime;
 
         cam = Camera.main;
@@ -42,9 +42,9 @@ public class EnemyFighter : MonoBehaviour
 
     void FixedUpdate()
     {
-        transform.position += speed;
+        transform.Translate(speed);
         shoot();
-        if(transform.position.y < bound.min.y)
+        if(transform.position.y < bound.min.y - 10 || transform.position.x < bound.min.x - 10)
         {
             Destroy(gameObject);
         }
