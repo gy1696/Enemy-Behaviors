@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class EnemyFighter : MonoBehaviour
 {
-    private int health;
+    public EnemyHealth health;
+
     private Vector3 speed;
+    
     Camera cam;
     CameraBounds camBounds;
     Bounds bound;
+    
     private float nextFire;
     public float fireRate;
 
@@ -16,7 +19,9 @@ public class EnemyFighter : MonoBehaviour
 
     void Start()
     {
-        health = 1;
+        health = GetComponent<EnemyHealth>();
+        health.setHealth(1, 1);
+
         speed = new Vector3(0, -30f, 0);
         speed = speed * Time.fixedDeltaTime;
 
@@ -53,15 +58,6 @@ public class EnemyFighter : MonoBehaviour
         {
             nextFire = Time.time + fireRate;
             Instantiate(Resources.Load("Prefabs/Bullet"), transform.position + Vector3.up, transform.rotation);
-        }
-    }
-
-    public void decreaseHealth()
-    {
-        health--;
-        if(health == 0)
-        {
-            Destroy(gameObject);
         }
     }
 

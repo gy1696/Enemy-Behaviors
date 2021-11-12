@@ -5,10 +5,13 @@ using UnityEngine;
 public class BasicHeroScript : MonoBehaviour
 {
     public EnemySpawnControl e;
+    private float nextFire;
+    public float fireRate;
     // Start is called before the first frame update
     void Start()
     {
-
+        fireRate = 0.225f;
+        nextFire = 0f;
     }
 
     // Update is called once per frame
@@ -40,8 +43,21 @@ public class BasicHeroScript : MonoBehaviour
         {
             e.SpawnChaser();
         }
+
+        if (Input.GetKey("space"))
+        {
+            shoot();
+        }
     }
 
+    void shoot()
+    {
+        if (Time.time > nextFire)
+        {
+            nextFire = Time.time + fireRate;
+            Instantiate(Resources.Load("Prefabs/HeroBullet"), transform.position, transform.rotation);
+        }
+    }
 
 
     void OnTriggerEnter2D(Collider2D col)

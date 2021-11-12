@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class ChaserBehavior : MonoBehaviour
 {
-    private int health;
+    public EnemyHealth health;
+    
     private Vector3 speed;
+   
     Camera cam;
     CameraBounds camBounds;
     Bounds bound;
+   
     private float nextFire;
     public float fireRate;
 
@@ -20,7 +23,9 @@ public class ChaserBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        health = 1;
+        health = GetComponent<EnemyHealth>();
+        health.setHealth(1, 1);
+        
         speed = new Vector3(0, -35f, 0);
         speed = speed * Time.fixedDeltaTime;
 
@@ -83,14 +88,6 @@ public class ChaserBehavior : MonoBehaviour
         {
             nextFire = Time.time + fireRate;
             Instantiate(Resources.Load("Prefabs/Bullet"), transform.position + Vector3.up, transform.rotation);
-        }
-    }
-    public void decreaseHealth()
-    {
-        health--;
-        if(health == 0)
-        {
-            Destroy(gameObject);
         }
     }
 }

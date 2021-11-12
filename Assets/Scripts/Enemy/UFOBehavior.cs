@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class UFOBehavior : MonoBehaviour
 {
-    private int health;
+    public EnemyHealth health;
+
     private Vector3 speed;
+    
     Camera cam;
     CameraBounds camBounds;
     Bounds bound;
+    
     private float nextFire;
     public float fireRate;
 
@@ -17,7 +20,9 @@ public class UFOBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        health = 8;
+        health = GetComponent<EnemyHealth>();
+        health.setHealth(8, 1);
+        
         speed = new Vector3(0, -40f, 0);
         speed = speed * Time.fixedDeltaTime;
 
@@ -32,8 +37,6 @@ public class UFOBehavior : MonoBehaviour
         timeAtSpawn = Time.time;
 
         transform.Rotate(Vector3.forward * 180f);
-
-
     }
 
     // Update is called once per frame
@@ -94,15 +97,6 @@ public class UFOBehavior : MonoBehaviour
                 right.transform.Rotate(Vector3.forward * -90f);
                 left.transform.Rotate(Vector3.forward * 90f);
             }   
-        }
-    }
-
-    public void decreaseHealth()
-    {
-        health--;
-        if(health == 0)
-        {
-            Destroy(gameObject);
         }
     }
 
