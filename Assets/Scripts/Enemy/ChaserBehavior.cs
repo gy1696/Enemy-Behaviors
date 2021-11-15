@@ -19,6 +19,7 @@ public class ChaserBehavior : MonoBehaviour
     GameObject[] players;
 
     private float timeSinceSpawn, timeAtSpawn;
+
     
     // Start is called before the first frame update
     void Start()
@@ -26,7 +27,7 @@ public class ChaserBehavior : MonoBehaviour
         health = GetComponent<EnemyHealth>();
         health.setHealth(1, 1);
         
-        speed = new Vector3(0, -35f, 0);
+        speed = new Vector3(0, 35f, 0);
         speed = speed * Time.fixedDeltaTime;
 
         cam = Camera.main;
@@ -34,14 +35,23 @@ public class ChaserBehavior : MonoBehaviour
         bound = camBounds.bounds;
 
         players = GameObject.FindGameObjectsWithTag("Player");
+        if (players.Length == 2)
+        {
+            hero = players[Random.Range(0,2)];
+        }
+        else
+        {
+            hero = players[0];
+        }
+        
 
-        fireRate = 0.50f;
+        fireRate = 0.75f;
         nextFire = 0f;
 
         timeSinceSpawn = 0;
         timeAtSpawn = Time.time;
 
-        transform.Rotate(Vector3.forward * 180f);
+        
 
 
     }
@@ -49,20 +59,19 @@ public class ChaserBehavior : MonoBehaviour
     void FixedUpdate()
     {
         
-        hero = players[Random.Range(0,1)];
-        
-        shoot();
-        transform.Translate(-speed);
+        transform.Translate(speed);
         if(timeSinceSpawn < 5.5f)
         {
-            PointAtPosition(hero.transform.position, .25f);
+            PointAtPosition(hero.transform.position, .025f);
+            shoot();
         }
         else
         {
+            Instantiate(Resources.Load("Prefabs/SelfDestruct"), transform.position, transform.rotation);
             Destroy(gameObject);
         }
         
-        if(transform.position.y < bound.min.y)
+        if(transform.position.y < bound.min.y || transform.position.y > bound.max.y + 50)
         {
             Destroy(gameObject);
         }

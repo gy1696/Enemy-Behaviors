@@ -15,6 +15,8 @@ public class UFOBehavior : MonoBehaviour
     private float nextFire;
     public float fireRate;
 
+    public float turnSpd;
+
     private float timeSinceSpawn, timeAtSpawn;
     
     // Start is called before the first frame update
@@ -23,35 +25,36 @@ public class UFOBehavior : MonoBehaviour
         health = GetComponent<EnemyHealth>();
         health.setHealth(8, 1);
         
-        speed = new Vector3(0, -40f, 0);
+        speed = new Vector3(0, -30f, 0);
         speed = speed * Time.fixedDeltaTime;
 
         cam = Camera.main;
         camBounds = cam.GetComponent<CameraBounds>();
         bound = camBounds.bounds;
 
-        fireRate = 0.225f;
+        fireRate = 0.4f;
         nextFire = 0f;
 
         timeSinceSpawn = 0;
         timeAtSpawn = Time.time;
 
         transform.Rotate(Vector3.forward * 180f);
+
+        turnSpd = 15f;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        float direction = spin(30f);
         if(timeSinceSpawn > 2.5f && timeSinceSpawn < 10f)
         {
-            transform.Rotate(Vector3.forward * spin(30f) * Time.fixedDeltaTime);
+            transform.Rotate(Vector3.forward * spin(turnSpd) * Time.fixedDeltaTime);
             shoot();
         }
         else
         {
             transform.Translate(speed, Space.World);
-            Debug.Log("TRANSLATING DOWN");
+            
             if(transform.position.y < bound.min.y - 10)
             {
                 Destroy(gameObject);

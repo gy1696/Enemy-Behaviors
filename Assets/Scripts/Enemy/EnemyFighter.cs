@@ -22,14 +22,14 @@ public class EnemyFighter : MonoBehaviour
         health = GetComponent<EnemyHealth>();
         health.setHealth(1, 1);
 
-        speed = new Vector3(0, 30f, 0);
+        speed = new Vector3(0, 20f, 0);
         speed = speed * Time.fixedDeltaTime;
 
         cam = Camera.main;
         camBounds = cam.GetComponent<CameraBounds>();
         bound = camBounds.bounds;
 
-        fireRate = .75f;
+        fireRate = 2f;
         nextFire = 0f;
 
         timeSinceSpawn = 0;
@@ -57,7 +57,7 @@ public class EnemyFighter : MonoBehaviour
         if (Time.time > nextFire)
         {
             nextFire = Time.time + fireRate;
-            Instantiate(Resources.Load("Prefabs/Bullet"), transform.position + Vector3.up, transform.rotation);
+            Instantiate(Resources.Load("Prefabs/Bullet"), transform.position, transform.rotation);
         }
     }
 

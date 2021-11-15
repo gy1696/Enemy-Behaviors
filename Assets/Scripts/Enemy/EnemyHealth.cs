@@ -6,6 +6,7 @@ public class EnemyHealth : MonoBehaviour
 {
     int health;
     int bulletDamage;
+    GameObject Explosion;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +19,8 @@ public class EnemyHealth : MonoBehaviour
         if(health == 0)
         {
             Destroy(gameObject);
+            Explosion = Instantiate(Resources.Load("Prefabs/Explosion"), transform.position, transform.rotation) as GameObject;
+            Destroy(Explosion.gameObject, 1);
         }
     }
 

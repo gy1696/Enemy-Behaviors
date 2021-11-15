@@ -18,24 +18,24 @@ public class BasicHeroScript : MonoBehaviour
         camBounds = cam.GetComponent<CameraBounds>();
         bound = camBounds.bounds;
 
-        fireRate = 0.2f;
+        fireRate = 0.4f;
         nextFire = 0f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        float s = Input.GetAxis("Vertical") * .3f;
+        float ver = Input.GetAxis("Vertical") * .3f;
         float side = Input.GetAxis("Horizontal") * .5f;
 
         if(Input.GetKey("w") || Input.GetKey("s"))
         {
-            this.transform.position += Vector3.up * s;
+            this.transform.position += Vector3.up * ver;
         }
         if(Input.GetKey("a") || Input.GetKey("d"))
         {
-            if(!(transform.position.x == bound.max.x)  && !(transform.position.x == bound.min.x))
             this.transform.position += Vector3.right * side;
+            
         }
         shoot();
     }
@@ -58,4 +58,6 @@ public class BasicHeroScript : MonoBehaviour
             Debug.Log("HIT");
         }
     }
+
+    
 }
